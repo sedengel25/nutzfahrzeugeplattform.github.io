@@ -8,6 +8,8 @@ function populateDynamicColumnsCheckboxes(columns) {
     // Clear existing checkboxes
     dynamicColumnsFilter.innerHTML = "";
 
+    columns.sort(); // Sort the columns alphabetically
+
     const columnsPerGroup = 5; // Number of columns per group
     const numGroups = Math.ceil(columns.length / columnsPerGroup);
 
@@ -46,17 +48,18 @@ function displayData(data, columnsToShow) {
     const container = document.getElementById("imageContainer");
     const typeFilter = document.getElementById("typeFilter");
     const selectedType = typeFilter.value;
+    console.log(selectedType);
     const selectedWeightClass = weightClassFilter.value;
 
     container.innerHTML = ""; // Clear previous content
 
     data.forEach(row => {
-        const type = row["Typ"];
+        const type = row["Fahrzeugkategorie Mobiwerk"];
         const weightClass = row["Gewichtsklasse"];
 
         if ((!selectedType || type === selectedType) && (!selectedWeightClass || weightClass === selectedWeightClass)) {
             const imageSrc = row.Bild;
-            const fullName = row["voller Name"];
+            const fullName = row["Name"];
 
             const imgElement = document.createElement("img");
             imgElement.src = imageSrc;
@@ -114,6 +117,14 @@ function readExcelFile(file, columnsToShow) {
     reader.readAsArrayBuffer(file);
 }
 
+function test(data) {
+    data.forEach(row => {
+        const name = row["Name"];
+        console.log(name);
+    })
+}
+
+test;
 // Listen for file input change
 const fileInput = document.getElementById("fileInput");
 fileInput.addEventListener("change", event => {
